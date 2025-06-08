@@ -1,12 +1,27 @@
 <!DOCTYPE html>
-<html lang="pt" data-bs-theme="light">
+<html lang="pt" id="page" data-bs-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mapsi — Dicionário Chope-Português</title>
+    <title>Mapsi — Dicionário de Cicopi</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <style>
+      .btn-border {
+        border-color: var(--bs-border-color);
+        border-width: 1px;
+      }
+      #introText {
+        transition: opacity 0.5s ease;
+      }
+      #introText.hidden {
+        opacity: 0;
+        pointer-events: none;
+        height: 0;
+        overflow: hidden;
+      }
+    </style>
     <script>
       function setTheme(theme) {
         const html = document.documentElement;
@@ -27,8 +42,12 @@
       <div class="container">
         <h1 class="h1 mb-0">Mapsi</h1>
         <div class="d-flex align-items-center">
-          <p class="text-muted mb-0">Dicionário da Língua Cicopi</p>
-          <div class="ms-auto"><a href="sobre.html" class="btn btn-sm btn-link">Sobre</a></div>
+          <p data-lang="pt" class="text-muted mb-0">Dicionário da Língua Cicopi</p>
+          <p data-lang="en" style="display: none" class="text-muted mb-0">Dictionary of the Cicopi Language</p>
+          <div class="ms-auto">
+            <a href="sobre.html" data-lang="pt" class="btn btn-sm btn-link">Sobre</a>
+            <a href="sobre.html" data-lang="en" style="display: none" class="btn btn-sm btn-link">About</a>
+          </div>
           <div class="dropdown">
             <button
               class="btn btn-outline-secondary dropdown-toggle border-0"
@@ -41,61 +60,88 @@
               <i class="bi bi-circle-half"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeToggle">
-              <li>
-                <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
-                  <i class="bi bi-sun me-2"></i> Claro
-                </button>
-              </li>
-              <li>
-                <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
-                  <i class="bi bi-moon me-2"></i> Escuro
-                </button>
-              </li>
-              <li>
-                <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
-                  <i class="bi bi-circle-half me-2"></i> Automático
-                </button>
-              </li>
+              <div data-lang="pt">
+                <li>
+                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
+                    <i class="bi bi-sun me-2"></i> Claro
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
+                    <i class="bi bi-moon me-2"></i> Escuro
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
+                    <i class="bi bi-circle-half me-2"></i> Automático
+                  </button>
+                </li>
+              </div>
+              <div data-lang="en" style="display: none">
+                <li>
+                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
+                    <i class="bi bi-sun me-2"></i> Light
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
+                    <i class="bi bi-moon me-2"></i> Dark
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
+                    <i class="bi bi-circle-half me-2"></i> Auto
+                  </button>
+                </li>
+              </div>
             </ul>
+          </div>
+          <div class="ps-2">
+            <select id="lang_select" class="form-select form-select-sm w-auto">
+              <option value="pt">Português</option>
+              <option value="en">English</option>
+            </select>
           </div>
         </div>
       </div>
     </header>
 
     <div class="container my-4" id="search_parent">
-      <form class="input-group mb-3" id="searchForm">
+      <form class="input-group mb-3" id="search_form">
         <input
           type="text"
-          id="searchBox"
+          id="search_box"
           class="form-control"
           placeholder="Buscar palavra em Chope ou Português..."
           aria-label="Busca"
         />
-        <button
-          class="btn btn-outline-secondary"
-          style="border-color: #ccc"
-          type="submit"
-          id="submitBtn"
-          title="Buscar"
-        >
-          🔍
-        </button>
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          id="clearBtn"
-          style="border-color: #ccc"
-          title="Limpar busca"
-        >
+        <button class="btn btn-outline-secondary btn-border" type="submit" id="submit_btn" title="Buscar">🔍</button>
+        <button class="btn btn-outline-secondary btn-border" type="button" id="clear_btn" title="Limpar busca">
           ✕
         </button>
       </form>
     </div>
 
-    <main class="flex-grow-1 container mt-4"><div id="results"></div></main>
+    <main class="flex-grow-1 container mt-4">
+      <div id="intro_text">
+        <div data-lang="pt">
+          <div class="ps-4 h6">Mapsi é um poderoso dicionário chope-português.</div>
+          <p class="ps-4 mb-0">Busque palavras em chope, português ou inglês.</p>
+          <p class="ps-4">Mapsi encontra definições e exemplos com rapidez e clareza.</p>
+        </div>
+        <div data-lang="en" style="display: none">
+          <div class="ps-4 h6">Mapsi is a powerful Chope–Portuguese dictionary.</div>
+          <p class="ps-4 mb-0">Search for words in Chope, Portuguese, or English.</p>
+          <p class="ps-4">Mapsi finds definitions and examples quickly and clearly.</p>
+        </div>
+      </div>
+
+      <div id="results"></div>
+    </main>
 
     <footer class="text-center text-muted py-3 border-top bg-body-secondary text-body-secondary">
-      <small>&copy; 2025 Mapsi — Todos os direitos reservados.</small>
+      <small data-lang="pt">&copy; 2025 Mapsi — Todos os direitos reservados.</small>
+      <small data-lang="en" style="display: none">&copy; 2025 Mapsi — All rights reserved.</small>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>

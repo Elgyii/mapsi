@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt" data-bs-theme="light">
+<html lang="pt" id="page" data-bs-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,10 +25,17 @@
   <body class="bg-body d-flex flex-column min-vh-100">
     <header class="p-4 border-bottom shadow-sm bg-body-tertiary" style="height: 120px">
       <div class="container">
-        <h1 class="h1 mb-0">Sobre o Mapsi</h1>
+        <h1 data-lang="pt" class="h1 mb-0">Sobre o Mapsi</h1>
+        <h1 data-lang="en" style="display: none" class="h1 mb-0">About Mapsi</h1>
         <div class="d-flex align-items-center">
-          <p class="text-muted mb-0">Dicionário da Língua Cicopi</p>
-          <div class="ms-auto"><a href="index.html" class="btn btn btn-outline-secondary border-0">← Voltar</a></div>
+          <p data-lang="pt" class="text-muted mb-0">Dicionário da Língua Cicopi</p>
+          <p data-lang="en" style="display: none" class="text-muted mb-0">Dictionary of the Cicopi Language</p>
+          <div class="ms-auto">
+            <a data-lang="pt" href="index.html" class="btn btn btn-outline-secondary border-0">← Voltar</a>
+            <a data-lang="en" style="display: none" href="index.html" class="btn btn btn-outline-secondary border-0"
+              >← Return</a
+            >
+          </div>
           <div class="dropdown">
             <button
               class="btn btn-outline-secondary dropdown-toggle border-0"
@@ -41,85 +48,188 @@
               <i class="bi bi-circle-half"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeToggle">
-              <li>
-                <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
-                  <i class="bi bi-sun me-2"></i> Claro
-                </button>
-              </li>
-              <li>
-                <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
-                  <i class="bi bi-moon me-2"></i> Escuro
-                </button>
-              </li>
-              <li>
-                <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
-                  <i class="bi bi-circle-half me-2"></i> Automático
-                </button>
-              </li>
+              <div data-lang="pt">
+                <li>
+                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
+                    <i class="bi bi-sun me-2"></i> Claro
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
+                    <i class="bi bi-moon me-2"></i> Escuro
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
+                    <i class="bi bi-circle-half me-2"></i> Automático
+                  </button>
+                </li>
+              </div>
+              <div data-lang="en" style="display: none">
+                <li>
+                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
+                    <i class="bi bi-sun me-2"></i> Light
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
+                    <i class="bi bi-moon me-2"></i> Dark
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
+                    <i class="bi bi-circle-half me-2"></i> Auto
+                  </button>
+                </li>
+              </div>
             </ul>
+          </div>
+          <div class="ps-2">
+            <select id="lang_select" class="form-select form-select-sm w-auto">
+              <option value="pt">Português</option>
+              <option value="en">English</option>
+            </select>
           </div>
         </div>
       </div>
     </header>
 
     <div class="flex-grow-1 container mt-4">
-      <section id="intro">
-        <p>
-          <strong>Mapsi</strong> é um projeto de dicionário chope-português e vice-versa. Permite encontrar palavras,
-          frases de exemplo e muito mais, de forma rápida e intuitiva. O nosso objetivo é construir o primeiro
-          dicionário que vá além da pesquisa de palavras isoladas, ajudando também a compreender qualquer texto em
-          chope.
-        </p>
-        <p>
-          As línguas africanas carecem de materiais de referência online. Nos tempos atuais, marcados por forte
-          influência tecnológica, muito conhecimento cultural perde-se pela falta de interação entre os jovens e os
-          centros culturais locais. Isso é ainda mais visível nas grandes cidades e entre povos que vivem fora dos seus
-          países de origem.
-        </p>
-        <p>
-          Por isso, o <strong>Mapsi</strong> pretende ser o próximo <strong><em>Google</em></strong> da língua chope:
-          basta colar uma palavra ou texto em chope, português ou inglês, que ele pesquisará nos dados disponíveis para
-          ajudar a entender o vocabulário e os padrões gramaticais.
-        </p>
-        <p>
-          <em>Mapsi é uma idealização e concepção de <strong>Elígio Maúre</strong>.</em>
-        </p>
+      <section>
+        <div data-lang="pt">
+          <p>
+            <strong>Mapsi</strong> é um projeto de dicionário chope-português e vice-versa. Permite encontrar palavras,
+            frases de exemplo e muito mais, de forma rápida e intuitiva. O nosso objetivo é construir o primeiro
+            dicionário que vá além da pesquisa de palavras isoladas, ajudando também a compreender qualquer texto em
+            chope.
+          </p>
+          <p>
+            As línguas africanas carecem de materiais de referência online. Nos tempos atuais, marcados por forte
+            influência tecnológica, muito conhecimento cultural perde-se pela falta de interação entre os jovens e os
+            centros culturais locais. Isso é ainda mais visível nas grandes cidades e entre povos que vivem fora dos
+            seus países de origem.
+          </p>
+          <p>
+            Por isso, o <strong>Mapsi</strong> pretende ser o próximo <strong><em>Google</em></strong> da língua chope:
+            basta colar uma palavra ou texto em chope, português ou inglês, que ele pesquisará nos dados disponíveis
+            para ajudar a entender o vocabulário e os padrões gramaticais.
+          </p>
+          <p>
+            <em>Mapsi é uma idealização e concepção de <strong>Elígio Maúre</strong>.</em>
+          </p>
+        </div>
+        <div data-lang="en" style="display: none">
+          <p>
+            <strong>Mapsi</strong> is a Chope-Portuguese dictionary project and vice-versa. It allows you to find words,
+            example sentences and much more, quickly and intuitively. Our goal is to build the first dictionary that
+            goes beyond searching for isolated words, also helping you understand any text in Chope.
+          </p>
+          <p>
+            African languages lack online reference materials. In today's world, marked by strong technological
+            influence, much cultural knowledge is lost due to the lack of interaction between young people and local
+            cultural centers. This is even more evident in large cities and among people living outside their countries
+            of origin.
+          </p>
+          <p>
+            That's why <strong>Mapsi</strong> aims to be the next <strong><em>Google</em></strong> of Chope language:
+            just paste a word or text in Chope, Portuguese or English, and it will search the available data to help you
+            understand the vocabulary and grammatical patterns.
+          </p>
+          <p>
+            <em>Mapsi is an idealization and conception of <strong>Elígio Maúre</strong>.</em>
+          </p>
+        </div>
       </section>
 
       <section class="pt-3" id="pesquisa">
-        <h4 class="h4 mb-1">Opções de pesquisa</h4>
-        <p>
-          A pesquisa baseia-se na inserção de palavras em chope ou em português. O sistema irá buscar correspondências
-          na sua base de dados. Caso a palavra não seja encontrada, uma mensagem apropriada será exibida.
-        </p>
+        <div data-lang="pt">
+          <h4 class="h4 mb-1">Opções de pesquisa</h4>
+          <p>
+            A pesquisa baseia-se na inserção de palavras em chope, em português, ou em inglês. O sistema irá buscar
+            correspondências na sua base de dados. Caso a palavra não seja encontrada, uma mensagem apropriada será
+            exibida.
+          </p>
+        </div>
+        <div data-lang="en" style="display: none">
+          <h4 class="h4 mb-1">Search options</h4>
+          <p>
+            The search is based on the insertion of words in Chope, Portuguese or English. The system will search for
+            matches in its database. If the word is not found, an appropriate message will be displayed.
+          </p>
+        </div>
       </section>
 
       <section class="pt-3" id="fontes">
-        <h4 class="h4 mb-1">Fontes de dados</h4>
-        <p>
-          A fonte primária deste projeto é o excelente trabalho do padre
-          <strong>Luís Feliciano dos Santos, O.F.M.</strong>, intitulado <em>Gramática da Língua Chope</em> (1941).
-        </p>
+        <div data-lang="pt">
+          <h4 class="h4 mb-1">Fontes de dados</h4>
+          <p>
+            A fonte primária deste projeto é o excelente trabalho do padre
+            <strong>Luís Feliciano dos Santos, O.F.M.</strong>, intitulado <em>Gramática da Língua Chope</em> (1941).
+          </p>
+        </div>
+        <div data-lang="en" style="display: none">
+          <h4 class="h4 mb-1">Data sources</h4>
+          <p>
+            The primary source for this project is the excellent work of Father
+            <strong>Luís Feliciano dos Santos, O.F.M.</strong>, entitled <em>Grammar of the Chope Language</em> (1941).
+          </p>
+        </div>
       </section>
 
       <section class="pt-3" id="opensource">
-        <h4 class="h4 mb-1">Contribuições de código aberto</h4>
-        <p><em>Por actualizar.</em></p>
+        <div data-lang="pt">
+          <h4 class="h4 mb-1">Contribuições de código aberto</h4>
+          <p><em>Por actualizar.</em></p>
+        </div>
+        <div data-lang="en" style="display: none">
+          <h4 class="h4 mb-1">Open Source Contributions</h4>
+          <p><em>To be updated...</em></p>
+        </div>
       </section>
 
       <section class="pt-3" id="contacto">
-        <h4 class="h4 mb-1">Entre em contacto</h4>
-        <p><em>dipsi.mapsi@gmail.com.</em></p>
+        <div data-lang="pt">
+          <h4 class="h4 mb-1">Entre em contacto</h4>
+          <p><em>dipsi.mapsi@gmail.com.</em></p>
+        </div>
+        <div data-lang="en" style="display: none">
+          <h4 class="h4 mb-1">Get in touch</h4>
+          <p><em>dipsi.mapsi@gmail.com.</em></p>
+        </div>
       </section>
 
       <section class="pt-3" id="faq">
-        <h4 class="h4 mb-1">Perguntas Frequentes</h4>
-        <p><em>Por actualizar.</em></p>
+        <div data-lang="pt">
+          <h4 class="h4 mb-1">Perguntas Frequentes</h4>
+          <p><em>Por actualizar...</em></p>
+        </div>
+        <div data-lang="en" style="display: none">
+          <h4 class="h4 mb-1">Frequently Asked Questions</h4>
+          <p><em>To be updated...</em></p>
+        </div>
       </section>
     </div>
 
     <footer class="text-center text-muted py-3 border-top bg-body-secondary text-body-secondary">
-      <small>&copy; 2025 Mapsi — Todos os direitos reservados.</small>
+      <small data-lang="pt">&copy; 2025 Mapsi — Todos os direitos reservados.</small>
+      <small data-lang="en" style="display: none">&copy; 2025 Mapsi — All rights reserved.</small>
     </footer>
+
+    <script>
+      const langSelect = document.getElementById("lang_select");
+      const savedLang = localStorage.getItem("selectedLang");
+      langSelect.addEventListener("change", () => {
+        const lang = langSelect.value;
+        localStorage.setItem("selectedLang", lang);
+        document.querySelectorAll("[data-lang]").forEach((el) => {
+          el.style.display = el.getAttribute("data-lang") === lang ? "block" : "none";
+        });
+        document.documentElement.lang = lang;
+      });
+      if (savedLang) {
+        langSelect.value = savedLang;
+        langSelect.dispatchEvent(new Event("change"));
+      }
+    </script>
   </body>
 </html>

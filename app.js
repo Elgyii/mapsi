@@ -3,11 +3,33 @@ const SUPABASE_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhdXZ6cGV0cnFicWZpdWFkdmluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkzMjU5NDEsImV4cCI6MjA2NDkwMTk0MX0.zqUgG0Q3_BF_4VRonBSfQCc5w8uEMG40noi0KxGMGn4";
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const searchForm = document.getElementById("searchForm");
-const searchBox = document.getElementById("searchBox");
-const submitBtn = document.getElementById("submitBtn");
-const clearBtn = document.getElementById("clearBtn");
+const langSelect = document.getElementById("lang_select");
+const introText = document.getElementById("intro_text");
+const searchForm = document.getElementById("search_form");
+const searchBox = document.getElementById("search_box");
+const submitBtn = document.getElementById("submit_btn");
+const clearBtn = document.getElementById("clear_btn");
 const results = document.getElementById("results");
+
+const savedLang = localStorage.getItem("selectedLang");
+langSelect.addEventListener("change", () => {
+  const lang = langSelect.value;
+  localStorage.setItem("selectedLang", lang);
+  document.querySelectorAll("[data-lang]").forEach((el) => {
+    el.style.display = el.getAttribute("data-lang") === lang ? "block" : "none";
+  });
+  searchBox.placeholder =
+    lang === "en"
+      ? "Search for word in Chope, Portuguese, or English..."
+      : "Buscar palavra em Chope, Portugues, ou Ingles...";
+  document.title = lang === "en" ? "Mapsi — Cicopi Dictionary" : "Mapsi — Dicionário de Cicopi";
+  document.documentElement.lang = lang;
+});
+
+if (savedLang) {
+  langSelect.value = savedLang;
+  langSelect.dispatchEvent(new Event("change"));
+}
 
 searchForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -25,6 +47,7 @@ clearBtn.addEventListener("click", () => {
 function clearSearch() {
   searchBox.value = "";
   results.innerHTML = "";
+  introText.style.display = "block";
   searchBox.focus();
 }
 
@@ -32,6 +55,8 @@ async function handleSearch() {
   const query = searchBox.value.trim();
   results.innerHTML = "";
   if (!query) return;
+
+  introText.style.display = "none";
 
   const { data: words, error } = await supabaseClient
     .from("words")
