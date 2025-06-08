@@ -17,7 +17,9 @@ function clearSearch() {
 searchInput.addEventListener("keypress", async (e) => {
   if (e.key === "Enter") await performSearch();
 });
-
+clearButton.addEventListener("click", (e) => {
+  if (e instanceof MouseEvent) clearSearch();
+});
 searchButton.addEventListener("click", async (e) => {
   if (e instanceof MouseEvent) await performSearch();
 });
@@ -27,15 +29,10 @@ async function performSearch() {
   results.innerHTML = "";
   if (!query) return;
 
-  // const { data, error } = await supabaseClient
-  //   .from("words")
-  //   .select("*")
-  //   .ilike("chopi", `%${query}%`);
-
   const { data: words, error } = await supabaseClient
     .from("words")
     .select("*, examples(*)")
-    .or(`chopi.ilike.%${query}%,definition_pt.ilike.%${query}%`);
+    .or(`chopi.ilike.%${query}%,definition_pt.ilike.%${query}%,definition_en.ilike.%${query}%`);
 
   if (error) {
     results.innerHTML = `<div class="alert alert-danger">Erro ao buscar: ${error.message}</div>`;
@@ -43,39 +40,82 @@ async function performSearch() {
   }
 
   if (words.length === 0) {
-    results.innerHTML = `<div class="alert alert-warning">Nada encontrado.</div>`;
+    results.innerHTML = `<div class="alert alert-warning">Nenhum resultado encontrado.</div>`;
     return;
   }
 
-  results.innerHTML = words
-    .map(
-      (w) => `
-    <div class="card mb-3">
-      <div class="card-body">
-        <h5>${w.chopi} <small class="text-muted">(${
-        w.pronunciation
-      })</small></h5>
-        <p><strong>PT:</strong> ${w.definition_pt}<br/>
-           <strong>EN:</strong> ${w.definition_en || ""}</p>
-        ${
-          w.examples && w.examples.length
-            ? `
-          <div><strong>Exemplos:</strong>
-            <ul>${w.examples
-              .map(
-                (ex) => `
-              <li><em>${ex.example_chopi}</em><br/>
-              PT: ${ex.example_pt}<br/>
-              EN: ${ex.example_en}</li>
-            `
-              )
-              .join("")}</ul>
-          </div>`
-            : ""
-        }
-      </div>
-    </div>
-  `
-    )
-    .join("");
+  results.innerHTML = `
+      <p class="text-muted">${words.length} resultado${words.length > 1 ? "s" : ""} encontrado${
+    words.length > 1 ? "s" : ""
+  }:</p>
+      ${words
+        .map(
+          (w) => `
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h4 class="mb-1">${w.chopi}</h4>
+                <small class="text-muted">Pronúncia: ${w.pronunciation}</small>
+              </div>
+              <div class="btn-group">
+                <button class="btn btn-sm btn-outline-primary" title="Ouvir" onclick="playAudio('${
+                  w.audio_url || ""
+                }')">
+                  <i class="bi bi-volume-up"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-${
+                  w.id
+                }" title="Inflexões">
+                  <i class="bi bi-grid-3x3-gap"></i>
+                </button>
+              </div>
+            </div>
+  
+            <hr>
+  
+            <p class="mb-1"><strong>Tipo:</strong> ${w.part_of_speech}</p>
+            <ol>
+              <li><strong>PT:</strong> ${w.definition_pt}</li>
+              ${w.definition_en ? `<li><strong>EN:</strong> ${w.definition_en}</li>` : ""}
+            </ol>
+  
+            ${
+              w.examples?.length
+                ? `
+                <div class="mt-3">
+                  <strong>Exemplos:</strong>
+                  <ul>
+                    ${w.examples
+                      .map(
+                        (ex) => `
+                        <li><em>${ex.example_chopi}</em><br/>
+                        PT: ${ex.example_pt}<br/>
+                        EN: ${ex.example_en}</li>`
+                      )
+                      .join("")}
+                  </ul>
+                </div>`
+                : ""
+            }
+  
+            <!-- Modal de Inflexões -->
+            <div class="modal fade" id="modal-${w.id}" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Inflexões de "${w.chopi}"</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p><em>Por atualizar. Aqui entrarão as formas derivadas, tempos verbais, etc.</em></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>`
+        )
+        .join("")}
+    `;
 }
