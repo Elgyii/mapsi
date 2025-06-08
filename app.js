@@ -14,17 +14,12 @@ function clearSearch() {
   searchInput.focus();
 }
 
-function performSearch() {
-  const query = searchInput.value.trim();
-  if (!query) return;
+searchInput.addEventListener("keypress", async (e) => {
+  if (e.key === "Enter") await performSearch();
+});
 
-  // Replace this with actual Supabase fetch
-  // console.log("Searching for:", query);
-  results.innerHTML = `<p>Showing results for "<strong>${query}</strong>"...</p>`;
-}
-
-searchInput.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") performSearch();
+searchButton.addEventListener("click", async (e) => {
+  if (e instanceof MouseEvent) await performSearch();
 });
 
 async function performSearch() {
@@ -40,7 +35,7 @@ async function performSearch() {
   const { data: words, error } = await supabaseClient
     .from("words")
     .select("*, examples(*)")
-    .or(`chopi.ilike.%${q}%,definition_pt.ilike.%${q}%`);
+    .or(`chopi.ilike.%${query}%,definition_pt.ilike.%${query}%`);
 
   if (error) {
     results.innerHTML = `<div class="alert alert-danger">Erro ao buscar: ${error.message}</div>`;
