@@ -1,7 +1,7 @@
 const SUPABASE_URL = "https://vauvzpetrqbqfiuadvin.supabase.co";
 const SUPABASE_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhdXZ6cGV0cnFicWZpdWFkdmluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkzMjU5NDEsImV4cCI6MjA2NDkwMTk0MX0.zqUgG0Q3_BF_4VRonBSfQCc5w8uEMG40noi0KxGMGn4";
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const searchBox = document.getElementById("searchBox");
 const results = document.getElementById("results");
@@ -14,7 +14,7 @@ searchBox.addEventListener("input", async () => {
     return;
   }
 
-  const { data: words, error } = await supabase
+  const { data: words, error } = await supabaseClient
     .from("words")
     .select("*, examples(*)")
     .or(`chopi.ilike.%${q}%,definition_pt.ilike.%${q}%`);
