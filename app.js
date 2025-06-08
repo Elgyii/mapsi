@@ -9,26 +9,26 @@ const submitBtn = document.getElementById("submitBtn");
 const clearBtn = document.getElementById("clearBtn");
 const results = document.getElementById("results");
 
+searchForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  await handleSearch();
+});
+
+submitBtn.addEventListener("click", async (e) => {
+  if (e instanceof MouseEvent) await handleSearch();
+});
+
+clearBtn.addEventListener("click", () => {
+  clearSearch();
+});
+
 function clearSearch() {
   searchBox.value = "";
   results.innerHTML = "";
   searchBox.focus();
 }
 
-searchForm.addEventListener("keypress", async (e) => {
-  if (e.key === "Enter") await performSearch();
-});
-searchBox.addEventListener("keypress", async (e) => {
-  if (e.key === "Enter") await performSearch();
-});
-submitBtn.addEventListener("click", async (e) => {
-  if (e instanceof MouseEvent) await performSearch();
-});
-clearBtn.addEventListener("click", (e) => {
-  if (e instanceof MouseEvent) clearSearch();
-});
-
-async function performSearch() {
+async function handleSearch() {
   const query = searchBox.value.trim();
   results.innerHTML = "";
   if (!query) return;
