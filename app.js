@@ -3,16 +3,39 @@ const SUPABASE_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhdXZ6cGV0cnFicWZpdWFkdmluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkzMjU5NDEsImV4cCI6MjA2NDkwMTk0MX0.zqUgG0Q3_BF_4VRonBSfQCc5w8uEMG40noi0KxGMGn4";
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const searchBox = document.getElementById("searchBox");
+const searchInput = document.getElementById("searchBox");
+const searchButton = document.getElementById("searchButton");
+const clearButton = document.getElementById("clearButton");
 const results = document.getElementById("results");
 
-searchBox.addEventListener("input", async () => {
-  const q = searchBox.value.trim().toLowerCase();
+function clearSearch() {
+  searchInput.value = "";
+  results.innerHTML = "";
+  searchInput.focus();
+}
 
-  if (q.length < 2) {
-    results.innerHTML = "";
-    return;
-  }
+function performSearch() {
+  const query = searchInput.value.trim();
+  if (!query) return;
+
+  // Replace this with actual Supabase fetch
+  // console.log("Searching for:", query);
+  results.innerHTML = `<p>Showing results for "<strong>${query}</strong>"...</p>`;
+}
+
+searchInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") performSearch();
+});
+
+async function performSearch() {
+  const query = searchInput.value.trim();
+  results.innerHTML = "";
+  if (!query) return;
+
+  // const { data, error } = await supabaseClient
+  //   .from("words")
+  //   .select("*")
+  //   .ilike("chopi", `%${query}%`);
 
   const { data: words, error } = await supabaseClient
     .from("words")
@@ -60,4 +83,4 @@ searchBox.addEventListener("input", async () => {
   `
     )
     .join("");
-});
+}

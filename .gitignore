@@ -1,0 +1,5 @@
+*.sql
+*.pdf
+# Ignore IDE-specific files
+.idea/
+.vscode/
