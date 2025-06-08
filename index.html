@@ -25,7 +25,7 @@
         height: 120px;
       }
       @media (max-width: 576px) { 
-        header {height: auto;}
+        header {height: auto !inportant;}
       }
     </style>
     <script>
@@ -45,13 +45,13 @@
   </head>
   <body class="bg-body d-flex flex-column min-vh-100">
     <header class="bg-body p-4 border-bottom shadow-sm bg-body-tertiary">
-      <div class="row container">
+      <div class="row">
         <div class="col-sm-6">
           <h1 class="h1 mb-0">Mapsi</h1>
           <p data-lang="pt" class="text-muted mb-0">Dicionário da Língua Cicopi</p>
-        <p data-lang="en" style="display: none" class="text-muted mb-0">Dictionary of the Cicopi Language</p>
+          <p data-lang="en" style="display: none" class="text-muted mb-0">Dictionary of the Cicopi Language</p>
         </div>
-          <div class="col-sm-6 d-flex align-items-center">
+        <div class="col-sm-6 d-flex align-items-center">
           <div class="ms-auto">
             <a href="sobre.html" data-lang="pt" class="btn btn-sm btn-link">Sobre</a>
             <a href="sobre.html" data-lang="en" style="display: none" class="btn btn-sm btn-link">About</a>
