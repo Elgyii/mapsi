@@ -3,29 +3,33 @@ const SUPABASE_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhdXZ6cGV0cnFicWZpdWFkdmluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkzMjU5NDEsImV4cCI6MjA2NDkwMTk0MX0.zqUgG0Q3_BF_4VRonBSfQCc5w8uEMG40noi0KxGMGn4";
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const searchInput = document.getElementById("searchBox");
-const searchButton = document.getElementById("searchButton");
-const clearButton = document.getElementById("clearButton");
+const searchForm = document.getElementById("searchForm");
+const searchBox = document.getElementById("searchBox");
+const submitBtn = document.getElementById("submitBtn");
+const clearBtn = document.getElementById("clearBtn");
 const results = document.getElementById("results");
 
 function clearSearch() {
-  searchInput.value = "";
+  searchBox.value = "";
   results.innerHTML = "";
-  searchInput.focus();
+  searchBox.focus();
 }
 
-searchInput.addEventListener("keypress", async (e) => {
+searchForm.addEventListener("keypress", async (e) => {
   if (e.key === "Enter") await performSearch();
 });
-clearButton.addEventListener("click", (e) => {
-  if (e instanceof MouseEvent) clearSearch();
+searchBox.addEventListener("keypress", async (e) => {
+  if (e.key === "Enter") await performSearch();
 });
-searchButton.addEventListener("click", async (e) => {
+submitBtn.addEventListener("click", async (e) => {
   if (e instanceof MouseEvent) await performSearch();
+});
+clearBtn.addEventListener("click", (e) => {
+  if (e instanceof MouseEvent) clearSearch();
 });
 
 async function performSearch() {
-  const query = searchInput.value.trim();
+  const query = searchBox.value.trim();
   results.innerHTML = "";
   if (!query) return;
 

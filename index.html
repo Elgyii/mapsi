@@ -22,14 +22,14 @@
       });
     </script>
   </head>
-
-  <body class="bg-body">
-    <header class="bg-body p-4 border-bottom shadow-sm">
+  <body class="bg-body d-flex flex-column min-vh-100">
+    <header class="bg-body p-4 border-bottom shadow-sm bg-body-tertiary" style="height: 120px">
       <div class="container">
         <h1 class="h1 mb-0">Mapsi</h1>
-        <div class="d-flex">
+        <div class="d-flex align-items-center">
           <p class="text-muted mb-0">Dicionário da Língua Cicopi</p>
-          <div class="dropdown ms-auto">
+          <div class="ms-auto"><a href="sobre.html" class="btn btn-sm btn-link">Sobre</a></div>
+          <div class="dropdown">
             <button
               class="btn btn-outline-secondary dropdown-toggle border-0"
               type="button"
@@ -71,71 +71,30 @@
           placeholder="Buscar palavra em Chope ou Português..."
           aria-label="Busca"
         />
-        <button class="btn btn-outline-secondary" type="submit" id="submitBtn" title="Buscar">🔍</button>
-        <button class="btn btn-outline-secondary" type="button" id="clearBtn" title="Limpar busca">✕</button>
+        <button
+          class="btn btn-outline-secondary"
+          style="border-color: #ccc"
+          type="submit"
+          id="submitBtn"
+          title="Buscar"
+        >
+          🔍
+        </button>
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          id="clearBtn"
+          style="border-color: #ccc"
+          title="Limpar busca"
+        >
+          ✕
+        </button>
       </form>
-
-      <div id="results" class="mt-4"></div>
     </div>
 
-    <main class="container mt-auto">
-      <section id="intro" class="mb-4">
-        <p>
-          <strong>Mapsi</strong> é um projeto de dicionário chope-português e vice-versa. Permite encontrar palavras,
-          frases de exemplo e muito mais, de forma rápida e intuitiva. O nosso objetivo é construir o primeiro
-          dicionário que vá além da pesquisa de palavras isoladas, ajudando também a compreender qualquer texto em
-          chope.
-        </p>
-        <p>
-          As línguas africanas carecem de materiais de referência online. Nos tempos atuais, marcados por forte
-          influência tecnológica, muito conhecimento cultural perde-se pela falta de interação entre os jovens e os
-          centros culturais locais. Isso é ainda mais visível nas grandes cidades e entre povos que vivem fora dos seus
-          países de origem.
-        </p>
-        <p>
-          Por isso, o <strong>Mapsi</strong> pretende ser o próximo "Google" da língua chope: basta colar uma palavra ou
-          texto em chope, português ou inglês, que ele pesquisará nos dados disponíveis para ajudar a entender o
-          vocabulário e os padrões gramaticais.
-        </p>
-        <p>
-          <strong><em>Mapsi é uma idealização e concepção de Elígio Maure.</em></strong>
-        </p>
-      </section>
+    <main class="flex-grow-1 container mt-4"><div id="results"></div></main>
 
-      <section id="pesquisa" class="mb-4">
-        <h4 class="h4 mb-1">Opções de pesquisa</h4>
-        <p>
-          A pesquisa baseia-se na inserção de palavras em chope ou em português, ou ate em ingles. O sistema irá buscar
-          correspondências na sua base de dados. Caso a palavra não seja encontrada, uma mensagem apropriada será
-          exibida.
-        </p>
-      </section>
-
-      <section id="fontes" class="mb-4">
-        <h4 class="h4 mb-1">Fontes de dados</h4>
-        <p>
-          A fonte primária deste projeto é o excelente trabalho do padre
-          <strong>Luís Feliciano dos Santos, O.F.M.</strong>, intitulado <em>Gramática da Língua Chope</em> (1941).
-        </p>
-      </section>
-
-      <section id="opensource" class="mb-4">
-        <h4 class="h4 mb-1">Contribuições de código aberto</h4>
-        <p><em>Por atualizar.</em></p>
-      </section>
-
-      <section id="contacto" class="mb-4">
-        <h4 class="h4 mb-1">Entre em contacto</h4>
-        <p><em>dipsi.mapsi@gmail.com.</em></p>
-      </section>
-
-      <section id="faq" class="mb-4">
-        <h4 class="h4 mb-1">Perguntas Frequentes</h4>
-        <p><em>Por atualizar.</em></p>
-      </section>
-    </main>
-
-    <footer class="bg-body text-center text-muted py-3 border-top mt-5">
+    <footer class="text-center text-muted py-3 border-top bg-body-secondary text-body-secondary">
       <small>&copy; 2025 Mapsi — Todos os direitos reservados.</small>
     </footer>
 
