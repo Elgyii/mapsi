@@ -38,69 +38,71 @@
     </script>
   </head>
   <body class="bg-body d-flex flex-column min-vh-100">
-    <header class="bg-body p-4 border-bottom shadow-sm bg-body-tertiary" style="height: 120px">
+    <header class="bg-body p-4 border-bottom shadow-sm bg-body-tertiary" style="height: 100px">
       <div class="container">
-        <h1 class="h1 mb-0">Mapsi</h1>
-        <div class="d-flex align-items-center">
-          <p data-lang="pt" class="text-muted mb-0">Dicionário da Língua Cicopi</p>
-          <p data-lang="en" style="display: none" class="text-muted mb-0">Dictionary of the Cicopi Language</p>
-          <div class="ms-auto">
-            <a href="sobre.html" data-lang="pt" class="btn btn-sm btn-link">Sobre</a>
-            <a href="sobre.html" data-lang="en" style="display: none" class="btn btn-sm btn-link">About</a>
+        <div class="row">
+          <div class="col-sm-6">
+            <h1 class="h1 mb-0">Mapsi</h1>
           </div>
-          <div class="dropdown">
-            <button
-              class="btn btn-outline-secondary dropdown-toggle border-0"
-              type="button"
-              id="themeToggle"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              title="Alternar tema"
-            >
-              <i class="bi bi-circle-half"></i>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeToggle">
-              <div data-lang="pt">
-                <li>
-                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
-                    <i class="bi bi-sun me-2"></i> Claro
-                  </button>
-                </li>
-                <li>
-                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
-                    <i class="bi bi-moon me-2"></i> Escuro
-                  </button>
-                </li>
-                <li>
-                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
-                    <i class="bi bi-circle-half me-2"></i> Automático
-                  </button>
-                </li>
-              </div>
-              <div data-lang="en" style="display: none">
-                <li>
-                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
-                    <i class="bi bi-sun me-2"></i> Light
-                  </button>
-                </li>
-                <li>
-                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
-                    <i class="bi bi-moon me-2"></i> Dark
-                  </button>
-                </li>
-                <li>
-                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
-                    <i class="bi bi-circle-half me-2"></i> Auto
-                  </button>
-                </li>
-              </div>
-            </ul>
-          </div>
-          <div class="ps-2">
-            <select id="lang_select" class="form-select form-select-sm w-auto">
-              <option value="pt">Português</option>
-              <option value="en">English</option>
-            </select>
+          <div class="col-sm-6 d-flex align-items-center">
+            <div class="ms-auto">
+              <a href="sobre.html" data-lang="pt" class="btn btn-sm btn-link">Sobre</a>
+              <a href="sobre.html" data-lang="en" style="display: none" class="btn btn-sm btn-link">About</a>
+            </div>
+            <div class="dropdown">
+              <button
+                class="btn btn-outline-secondary dropdown-toggle border-0"
+                type="button"
+                id="themeToggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                title="Alternar tema"
+              >
+                <i class="bi bi-circle-half"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeToggle">
+                <div data-lang="pt">
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
+                      <i class="bi bi-sun me-2"></i> Claro
+                    </button>
+                  </li>
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
+                      <i class="bi bi-moon me-2"></i> Escuro
+                    </button>
+                  </li>
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
+                      <i class="bi bi-circle-half me-2"></i> Automático
+                    </button>
+                  </li>
+                </div>
+                <div data-lang="en" style="display: none">
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
+                      <i class="bi bi-sun me-2"></i> Light
+                    </button>
+                  </li>
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
+                      <i class="bi bi-moon me-2"></i> Dark
+                    </button>
+                  </li>
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
+                      <i class="bi bi-circle-half me-2"></i> Auto
+                    </button>
+                  </li>
+                </div>
+              </ul>
+            </div>
+            <div class="ps-2">
+              <select id="lang_select" class="form-select form-select-sm w-auto">
+                <option value="pt">Português</option>
+                <option value="en">English</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
@@ -125,14 +127,16 @@
     <main class="flex-grow-1 container mt-4">
       <div id="intro_text">
         <div data-lang="pt">
-          <div class="ps-4 h6">Mapsi é um poderoso dicionário chope-português.</div>
-          <p class="ps-4 mb-0">Busque palavras em chope, português ou inglês.</p>
-          <p class="ps-4">Mapsi encontra definições e exemplos com rapidez e clareza.</p>
+          <div class="ps-4 h5">Mapsi, um poderoso dicionário chope-português.</div>
+          <p class="ps-4">
+            Ajuda a fazer a busca de palavras em chope, português ou inglês, com definições e exemplos praticos.
+          </p>
         </div>
         <div data-lang="en" style="display: none">
-          <div class="ps-4 h6">Mapsi is a powerful Chope–Portuguese dictionary.</div>
-          <p class="ps-4 mb-0">Search for words in Chope, Portuguese, or English.</p>
-          <p class="ps-4">Mapsi finds definitions and examples quickly and clearly.</p>
+          <div class="ps-4 h5">Mapsi, a powerful Chope-Portuguese dictionary.</div>
+          <p class="ps-4">
+            Let you search for words in Chope, Portuguese, or English, with definitions and usage examples.
+          </p>
         </div>
       </div>
 
