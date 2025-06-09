@@ -21,9 +21,19 @@
         setTheme(saved);
       });
     </script>
+    <style>
+      header {
+        height: 9vh;
+      }
+      @media (max-width: 576px) {
+        header {
+          height: auto;
+        }
+      }
+    </style>
   </head>
   <body class="bg-body d-flex flex-column min-vh-100">
-    <header class="p-4 border-bottom shadow-sm bg-body-tertiary" style="height: 120px">
+    <!-- <header class="p-4 border-bottom shadow-sm bg-body-tertiary" style="height: 120px">
       <div class="container">
         <h1 data-lang="pt" class="h1 mb-0">Sobre o Mapsi</h1>
         <h1 data-lang="en" style="display: none" class="h1 mb-0">About Mapsi</h1>
@@ -36,65 +46,86 @@
               >← Return</a
             >
           </div>
-          <div class="dropdown">
-            <button
-              class="btn btn-outline-secondary dropdown-toggle border-0"
-              type="button"
-              id="themeToggle"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              title="Alternar tema"
-            >
-              <i class="bi bi-circle-half"></i>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeToggle">
-              <div data-lang="pt">
-                <li>
-                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
-                    <i class="bi bi-sun me-2"></i> Claro
-                  </button>
-                </li>
-                <li>
-                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
-                    <i class="bi bi-moon me-2"></i> Escuro
-                  </button>
-                </li>
-                <li>
-                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
-                    <i class="bi bi-circle-half me-2"></i> Automático
-                  </button>
-                </li>
-              </div>
-              <div data-lang="en" style="display: none">
-                <li>
-                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
-                    <i class="bi bi-sun me-2"></i> Light
-                  </button>
-                </li>
-                <li>
-                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
-                    <i class="bi bi-moon me-2"></i> Dark
-                  </button>
-                </li>
-                <li>
-                  <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
-                    <i class="bi bi-circle-half me-2"></i> Auto
-                  </button>
-                </li>
-              </div>
-            </ul>
+        </div>
+      </div>
+    </header> -->
+
+    <header class="bg-body p-4 border-bottom shadow-sm bg-body-tertiary">
+      <div class="container-md">
+        <div
+          class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-3"
+        >
+          <div>
+            <h1 data-lang="pt" class="h1 mb-0">Sobre o Mapsi</h1>
+            <h1 data-lang="en" style="display: none" class="h1 mb-0">About Mapsi</h1>
           </div>
-          <div class="ps-2">
-            <select id="lang_select" class="form-select form-select-sm w-auto">
-              <option value="pt">Português</option>
-              <option value="en">English</option>
-            </select>
+          <div class="d-flex flex-wrap align-items-start gap-2">
+            <div>
+              <a data-lang="pt" href="index.html" class="btn btn btn-outline-secondary border-0">← Voltar</a>
+              <a data-lang="en" style="display: none" href="index.html" class="btn btn btn-outline-secondary border-0"
+                >← Return</a
+              >
+            </div>
+            <div class="dropdown">
+              <button
+                class="btn btn-outline-secondary dropdown-toggle border-0"
+                type="button"
+                id="themeToggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                title="Alternar tema"
+              >
+                <i class="bi bi-circle-half"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeToggle">
+                <div data-lang="pt">
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
+                      <i class="bi bi-sun me-2"></i>Claro
+                    </button>
+                  </li>
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
+                      <i class="bi bi-moon me-2"></i>Escuro
+                    </button>
+                  </li>
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
+                      <i class="bi bi-circle-half me-2"></i>Automático
+                    </button>
+                  </li>
+                </div>
+                <div data-lang="en" style="display: none">
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
+                      <i class="bi bi-sun me-2"></i>Light
+                    </button>
+                  </li>
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
+                      <i class="bi bi-moon me-2"></i>Dark
+                    </button>
+                  </li>
+                  <li>
+                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
+                      <i class="bi bi-circle-half me-2"></i>Auto
+                    </button>
+                  </li>
+                </div>
+              </ul>
+            </div>
+            <div>
+              <select id="lang_select" class="form-select form-select-sm w-auto">
+                <option value="pt">Português</option>
+                <option value="en">English</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
     </header>
 
-    <div class="flex-grow-1 container mt-4">
+    <div class="flex-grow-1 container-md mt-4">
       <section>
         <div data-lang="pt">
           <p>

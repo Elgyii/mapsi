@@ -21,6 +21,14 @@
         height: 0;
         overflow: hidden;
       }
+      header {
+        height: 9vh;
+      }
+      @media (max-width: 576px) {
+        header {
+          height: auto;
+        }
+      }
     </style>
     <script>
       function setTheme(theme) {
@@ -38,16 +46,20 @@
     </script>
   </head>
   <body class="bg-body d-flex flex-column min-vh-100">
-    <header class="bg-body p-4 border-bottom shadow-sm bg-body-tertiary" style="height: 100px">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-6">
+    <header class="bg-body p-4 border-bottom shadow-sm bg-body-tertiary">
+      <div class="container-md">
+        <div
+          class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-3"
+        >
+          <div>
             <h1 class="h1 mb-0">Mapsi</h1>
           </div>
-          <div class="col-sm-6 d-flex align-items-center">
-            <div class="ms-auto">
-              <a href="sobre.html" data-lang="pt" class="btn btn-sm btn-link">Sobre</a>
-              <a href="sobre.html" data-lang="en" style="display: none" class="btn btn-sm btn-link">About</a>
+          <div class="d-flex flex-wrap align-items-start gap-2">
+            <div>
+              <a href="sobre.html" data-lang="pt" class="btn btn-sm btn-link ps-0 ps-sm-2">Sobre</a>
+              <a href="sobre.html" data-lang="en" class="btn btn-sm btn-link ps-0 ps-sm-2" style="display: none"
+                >About</a
+              >
             </div>
             <div class="dropdown">
               <button
@@ -64,40 +76,40 @@
                 <div data-lang="pt">
                   <li>
                     <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
-                      <i class="bi bi-sun me-2"></i> Claro
+                      <i class="bi bi-sun me-2"></i>Claro
                     </button>
                   </li>
                   <li>
                     <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
-                      <i class="bi bi-moon me-2"></i> Escuro
+                      <i class="bi bi-moon me-2"></i>Escuro
                     </button>
                   </li>
                   <li>
                     <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
-                      <i class="bi bi-circle-half me-2"></i> Automático
+                      <i class="bi bi-circle-half me-2"></i>Automático
                     </button>
                   </li>
                 </div>
                 <div data-lang="en" style="display: none">
                   <li>
                     <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
-                      <i class="bi bi-sun me-2"></i> Light
+                      <i class="bi bi-sun me-2"></i>Light
                     </button>
                   </li>
                   <li>
                     <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
-                      <i class="bi bi-moon me-2"></i> Dark
+                      <i class="bi bi-moon me-2"></i>Dark
                     </button>
                   </li>
                   <li>
                     <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
-                      <i class="bi bi-circle-half me-2"></i> Auto
+                      <i class="bi bi-circle-half me-2"></i>Auto
                     </button>
                   </li>
                 </div>
               </ul>
             </div>
-            <div class="ps-2">
+            <div>
               <select id="lang_select" class="form-select form-select-sm w-auto">
                 <option value="pt">Português</option>
                 <option value="en">English</option>
@@ -108,7 +120,7 @@
       </div>
     </header>
 
-    <div class="container my-4" id="search_parent">
+    <div class="container-md my-4" id="search_parent">
       <form class="input-group mb-3" id="search_form">
         <input
           type="text"
@@ -124,17 +136,17 @@
       </form>
     </div>
 
-    <main class="flex-grow-1 container mt-4">
+    <main class="flex-grow-1 container-md mt-4">
       <div id="intro_text">
         <div data-lang="pt">
-          <div class="ps-4 h5">Mapsi, um poderoso dicionário chope-português.</div>
-          <p class="ps-4">
+          <div class="ps-0 ps-md-3 h5">Mapsi, um poderoso dicionário chope-português.</div>
+          <p class="ps-0 ps-md-3">
             Ajuda a fazer a busca de palavras em chope, português ou inglês, com definições e exemplos praticos.
           </p>
         </div>
         <div data-lang="en" style="display: none">
-          <div class="ps-4 h5">Mapsi, a powerful Chope-Portuguese dictionary.</div>
-          <p class="ps-4">
+          <div class="ps-0 ps-md-3 h5">Mapsi, a powerful Chope-Portuguese dictionary.</div>
+          <p class="ps-0 ps-md-3">
             Let you search for words in Chope, Portuguese, or English, with definitions and usage examples.
           </p>
         </div>
