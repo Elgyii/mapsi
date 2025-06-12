@@ -51,100 +51,152 @@ function clearSearch() {
   searchBox.focus();
 }
 
+async function handleNoExactMatch(inputWord) {
+  const { data, error } = await supabase.rpc("suggest_similar_words", { input_word: inputWord });
+
+  const isPt = document.documentElement.lang === "pt";
+  const title = isPt ? "Palavra não encontrada." : "Word not found.";
+  const h = isPt
+    ? `<p>Não foi encontrada nenhuma correspondência exata para "<strong>${inputWord}</strong>".</p>`
+    : `<p>No exact match found for "<strong>${inputWord}</strong>".</p>`;
+  let card = `
+  <div class="card bg-warning mb-3">
+    <div class="card-header">${title}</div>
+    <div class="card-body">
+      <h5 class="card-title">${h}</h5>`;
+
+  if (error || !data || data.length === 0) {
+    const b = isPt
+      ? "<p>Nenhuma sugestão semelhante encontrada.<br/>Você quis dizer:</p>"
+      : "<p>No similar suggestions found.<br/>Did you mean:</p>";
+    card += `<p>${b}</p></div></div>`;
+    results.innerHTML = card;
+    return;
+  }
+
+  card += "<ul>";
+  data.forEach(({ word }) => (card += `<li><a class="suggestion-link" href="#">${word}</a></li>`));
+  card += "</ul>";
+  results.innerHTML = card;
+  results.addEventListener("click", (e) => {
+    if (e.target.classList.contains("suggestion-link")) {
+      e.preventDefault();
+      searchBox.value = e.target.textContent;
+      handleSearch();
+    }
+  });
+}
+
 async function handleSearch() {
-  const query = searchBox.value.trim();
+  query = searchBox.value.trim();
   results.innerHTML = "";
   if (!query) return;
 
   introText.style.display = "none";
+  const { data: matches, error } = await supabaseClient
+    .from("word_search_view")
+    .select("*")
+    .or(`chopi.ilike.%${query}%,translation.ilike.%${query}%`);
 
-  const { data: words, error } = await supabaseClient
-    .from("words")
-    .select("*, examples(*)")
-    .or(`chopi.ilike.%${query}%,definition_pt.ilike.%${query}%,definition_en.ilike.%${query}%`);
+  if (matches.length === 0) {
+    await handleNoExactMatch(query);
+    return;
+  }
 
+  const isPt = document.documentElement.lang === "pt";
   if (error) {
-    results.innerHTML = `<div class="alert alert-danger">Erro ao buscar: ${error.message}</div>`;
+    const h1 = isPt ? "Erro de pesquisa" : "Search error";
+    const h2 = isPt ? "Resultado não encontrado." : "Result not found.";
+    const t = isPt
+      ? `Lamentamos, não foi possível encontrar nenhuma correspondência para "${query}". Ocorreu um erro inesperado.`
+      : `Sorry, no match for "${query}" could be found. An unexpected error has occurred.`;
+    results.innerHTML = `
+      <div class="card bg-danger mb-3">
+        <div class="card-header">${h1}</div>
+        <div class="card-body">
+          <h5 class="card-title">${h2}</h5>
+          <p>${t}</p>
+        </div>
+      </div>`;
     return;
   }
 
-  if (words.length === 0) {
-    results.innerHTML = `<div class="alert alert-warning">Nenhum resultado encontrado.</div>`;
+  const word_matches = matches.filter((entry) => entry.lang_code === document.documentElement.lang);
+  if (word_matches.length === 0) {
+    const h1 = isPt ? "Nenhum resultado encontrado." : "No results found.";
+    results.innerHTML = `<div class="alert alert-warning">${h1}</div>`;
     return;
   }
 
+  const sufx = word_matches.length > 1 ? "s" : "";
+  console.log({ sufx, word_matches });
+  const res = isPt
+    ? `Resultado${sufx} — ${word_matches.length} encontrado${sufx}:`
+    : `Word${sufx} — ${word_matches.length} found.`;
+  const lang = isPt ? "🇵🇹" : "🇬🇧";
   results.innerHTML = `
-      <p class="text-muted">${words.length} resultado${words.length > 1 ? "s" : ""} encontrado${
-    words.length > 1 ? "s" : ""
-  }:</p>
-      ${words
-        .map(
-          (w) => `
-        <div class="card mb-3">
+      <p class="text-muted">${res}</p>
+      ${word_matches
+        .map((entry, i) => {
+          return `<div class="card mb-3">
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
               <div>
-                <h4 class="mb-1">${w.chopi}</h4>
-                <small class="text-muted">Pronúncia: ${w.pronunciation}</small>
+                <div class="d-flex align-items-baseline">
+                  <h1 class="h1 mb-1 text-primary">${entry.chopi}</h1>
+                  <p class="ms-2 mb-0 text-muted" style="font-size: 1.2rem"><em>${entry.part_of_speech}</em></p>
+                </div>
+                <small class="text-muted">${lang}</small> ${entry.translation}<br />
+                <small class="text-muted">${isPt ? "Pronúncia" : "Pronunciation"}: <span class="text-success">${
+            entry.pronunciation
+          }</span></small>
               </div>
               <div class="btn-group">
-                <button class="btn btn-sm btn-outline-primary" title="Ouvir" onclick="playAudio('${
-                  w.audio_url || ""
-                }')">
-                  <i class="bi bi-volume-up"></i>
+                <button class="btn btn-sm btn-primary" title="Listen" onclick="playAudio(${entry.audio || ""})">
+                  <i class="bi bi-volume-up-fill"></i>
                 </button>
-                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modal-${
-                  w.id
-                }" title="Inflexões">
-                  <i class="bi bi-grid-3x3-gap"></i>
+                <button
+                  class="btn btn-sm btn-secondary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal-${entry.word_id}"
+                  title="${isPt ? "Inflexões" : "Inflections"}">
+                  <i class="bi bi-shuffle"></i>
+                </button>
+                <button class="btn btn-sm btn-info" title="Gravar palavra">
+                  <i class="bi bi-bookmark"></i>
                 </button>
               </div>
             </div>
-  
-            <hr>
-  
-            <p class="mb-1"><strong>Tipo:</strong> ${w.part_of_speech}</p>
-            <ol>
-              <li><strong>PT:</strong> ${w.definition_pt}</li>
-              ${w.definition_en ? `<li><strong>EN:</strong> ${w.definition_en}</li>` : ""}
-            </ol>
-  
-            ${
-              w.examples?.length
-                ? `
-                <div class="mt-3">
-                  <strong>Exemplos:</strong>
-                  <ul>
-                    ${w.examples
-                      .map(
-                        (ex) => `
-                        <li><em>${ex.example_chopi}</em><br/>
-                        PT: ${ex.example_pt}<br/>
-                        EN: ${ex.example_en}</li>`
-                      )
-                      .join("")}
-                  </ul>
-                </div>`
-                : ""
-            }
-  
-            <!-- Modal de Inflexões -->
-            <div class="modal fade" id="modal-${w.id}" tabindex="-1">
+            <hr />
+
+            <p><strong>${entry.definition ? (isPt ? "Definições:" : "Definitions:") : ""}</strong></p>
+              <div class="mt-3">
+                <strong>${isPt ? "Exemplo" : "Example"}${sufx}:</strong>
+                <ul>
+                  <li><em>${entry.sentence}</em><br/>
+                  <small class="text-muted">${lang}</small> ${entry.trans_sentence}<br />
+                </ul>
+              </div>
+            <div class="modal fade" id="modal-${entry.word_id}" tabindex="-1">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title">Inflexões de "${w.chopi}"</h5>
+                    <h5 class="modal-title">${isPt ? "Inflexões de" : "Inflections of"} ${entry.chopi}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                   </div>
                   <div class="modal-body">
-                    <p><em>Por atualizar. Aqui entrarão as formas derivadas, tempos verbais, etc.</em></p>
+                    <p><em>${
+                      isPt
+                        ? "Por atualizar. Formas derivadas, tempos verbais, etc. serão aqui incluídos."
+                        : "To be updated. Derived forms, verb tenses, etc. will be included here."
+                    }</em></p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>`
-        )
+        </div>`;
+        })
         .join("")}
     `;
 }

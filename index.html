@@ -22,12 +22,41 @@
         overflow: hidden;
       }
       header {
-        height: 9vh;
+        height: 85px;
       }
       @media (max-width: 576px) {
         header {
           height: auto;
         }
+      }
+      #search_form {
+        height: 46px;
+        input {
+          font-size: 18px;
+        }
+      }
+      .search_category li > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      .search_category li > a:hover {
+        text-decoration: underline;
+      }
+      :root {
+        --primary-light: #0056b3;
+        --primary-dark: #82b1ff;
+        --text-light: #212529;
+        --text-dark: #f1f1f1;
+      }
+
+      body.light-mode {
+        --primary-color: var(--primary-light);
+        --text-color: var(--text-light);
+      }
+
+      body.dark-mode {
+        --primary-color: var(--primary-dark);
+        --text-color: var(--text-dark);
       }
     </style>
     <script>
@@ -46,14 +75,12 @@
     </script>
   </head>
   <body class="bg-body d-flex flex-column min-vh-100">
-    <header class="bg-body p-4 border-bottom shadow-sm bg-body-tertiary">
+    <header class="bg-body py-4 border-bottom shadow-sm bg-body-tertiary">
       <div class="container-md">
         <div
           class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-3"
         >
-          <div>
-            <h1 class="h1 mb-0">Mapsi</h1>
-          </div>
+          <div><h1 class="h1 mb-0">Mapsi</h1></div>
           <div class="d-flex flex-wrap align-items-start gap-2">
             <div>
               <a href="sobre.html" data-lang="pt" class="btn btn-sm btn-link ps-0 ps-sm-2">Sobre</a>
@@ -143,12 +170,44 @@
           <p class="ps-0 ps-md-3">
             Ajuda a fazer a busca de palavras em chope, português ou inglês, com definições e exemplos praticos.
           </p>
+          <div class="ps-0 ps-md-3 search_category">
+            <p>Abaixo estão os conteúdos que podem ser pesquisados no Mapsi.</p>
+            <ul>
+              <li><a href="">Lista de palavras</a></li>
+              <li><a href="">Verbos</a></li>
+              <li><a href="">Preposições</a></li>
+              <li><a href="">Advérbios</a></li>
+              <li><a href="">Conjunções</a></li>
+              <li><a href="">Interjeições</a></li>
+              <li><a href="">Substantivos</a></li>
+              <li><a href="">Adjetivos</a></li>
+              <li><a href="">Pronomes</a></li>
+              <li><a href="">Fonologia e ortografia</a></li>
+              <li><a href="">Ortografia e prosódia</a></li>
+            </ul>
+          </div>
         </div>
         <div data-lang="en" style="display: none">
           <div class="ps-0 ps-md-3 h5">Mapsi, a powerful Chope-Portuguese dictionary.</div>
           <p class="ps-0 ps-md-3">
             Let you search for words in Chope, Portuguese, or English, with definitions and usage examples.
           </p>
+          <div class="ps-0 ps-md-3 search_category">
+            <p>Below are the contents that can be searched on Mapsi.</p>
+            <ul>
+              <li><a href="">World list</a></li>
+              <li><a href="">Verbs</a></li>
+              <li><a href="">Prepositions</a></li>
+              <li><a href="">Adverbs</a></li>
+              <li><a href="">Conjunctions</a></li>
+              <li><a href="">Interjections</a></li>
+              <li><a href="">Nouns</a></li>
+              <li><a href="">Adjectives</a></li>
+              <li><a href="">Pronouns</a></li>
+              <li><a href="">Phonology and spelling</a></li>
+              <li><a href="">Spelling and prosody</a></li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -156,8 +215,8 @@
     </main>
 
     <footer class="text-center text-muted py-3 border-top bg-body-secondary text-body-secondary">
-      <small data-lang="pt">&copy; 2025 Mapsi — Todos os direitos reservados.</small>
-      <small data-lang="en" style="display: none">&copy; 2025 Mapsi — All rights reserved.</small>
+      <small data-lang="pt">&copy; 2025 Tchiuonga — Todos os direitos reservados.</small>
+      <small data-lang="en" style="display: none">&copy; 2025 Tchiuonga — All rights reserved.</small>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
