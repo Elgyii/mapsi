@@ -182,9 +182,9 @@ async function handleNoExactMatch(inputWord) {
     results.innerHTML = card;
     return;
   }
-  card += isPt ? "<p>Você quis dizer:</p>" : "<p>Did you mean:</p><ul>";
+  card += isPt ? "<p>Você quis dizer:</p><div class='ps-1'><ul>" : "<p>Did you mean:</p><div class='ps-1'><ul>";
   data.forEach(({ word }) => (card += `<li><a class="suggestion-link" href="#">${word}</a></li>`));
-  card += "</ul>";
+  card += "</ul></div>";
   results.innerHTML = card;
   results.addEventListener("click", (e) => {
     if (e.target.classList.contains("suggestion-link")) {
