@@ -7,147 +7,82 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-    <style>
-      .btn-border {
-        border-color: var(--bs-border-color);
-        border-width: 1px;
-      }
-      #introText {
-        transition: opacity 0.5s ease;
-      }
-      #introText.hidden {
-        opacity: 0;
-        pointer-events: none;
-        height: 0;
-        overflow: hidden;
-      }
-      header {
-        height: 85px;
-      }
-      @media (max-width: 576px) {
-        header {
-          height: auto;
-        }
-      }
-      #search_form {
-        height: 46px;
-        input {
-          font-size: 18px;
-        }
-      }
-      .search_category li > a {
-        text-decoration: none;
-        color: inherit;
-      }
-      .search_category li > a:hover {
-        text-decoration: underline;
-      }
-      :root {
-        --primary-light: #0056b3;
-        --primary-dark: #82b1ff;
-        --text-light: #212529;
-        --text-dark: #f1f1f1;
-      }
-
-      body.light-mode {
-        --primary-color: var(--primary-light);
-        --text-color: var(--text-light);
-      }
-
-      body.dark-mode {
-        --primary-color: var(--primary-dark);
-        --text-color: var(--text-dark);
-      }
-    </style>
-    <script>
-      function setTheme(theme) {
-        const html = document.documentElement;
-        if (theme === "auto") {
-          theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-        }
-        html.dataset.bsTheme = theme;
-        localStorage.setItem("theme", theme);
-      }
-      document.addEventListener("DOMContentLoaded", () => {
-        const saved = localStorage.getItem("theme") || "auto";
-        setTheme(saved);
-      });
-    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="setup.js"></script>
   </head>
   <body class="bg-body d-flex flex-column min-vh-100">
     <header class="bg-body py-4 border-bottom shadow-sm bg-body-tertiary">
       <div class="container-md">
-        <div
-          class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-3"
-        >
-          <div><h1 class="h1 mb-0">Mapsi</h1></div>
-          <div class="d-flex flex-wrap align-items-start gap-2">
-            <div>
-              <a href="sobre.html" data-lang="pt" class="btn btn-sm btn-link ps-0 ps-sm-2">Sobre</a>
-              <a href="sobre.html" data-lang="en" class="btn btn-sm btn-link ps-0 ps-sm-2" style="display: none"
-                >About</a
-              >
+        <div class="d-flex flex-column flex-sm-row justify-content-between gap-3">
+          <div title="Mapsi" data-lang="pt">
+            <h1 class="h1 mb-0 flex-row">
+              Mapsi
+              <a href="https://pt.wikipedia.org/wiki/Mozambique"
+                ><span class="flag-icon flag-icon-mz" title="Moçambique" style="font-size: 1.3rem"></span
+              ></a>
+            </h1>
+          </div>
+          <div title="Mapsi" data-lang="en">
+            <h1 class="h1 mb-0 flex-row">
+              Mapsi
+              <a href="https://pt.wikipedia.org/wiki/Mozambique"
+                ><span class="flag-icon flag-icon-mz" title="Mozambique" style="font-size: 1.3rem"></span
+              ></a>
+            </h1>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <div aria-label="Sobre mapsi">
+              <a href="sobre.html" data-lang="pt" class="btn btn-link ps-0">Sobre</a>
+              <a href="sobre.html" data-lang="en" class="btn btn-link ps-0">About</a>
             </div>
-            <div class="dropdown">
-              <button
-                class="btn btn-outline-secondary dropdown-toggle border-0"
-                type="button"
-                id="themeToggle"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                title="Alternar tema"
-              >
-                <i class="bi bi-circle-half"></i>
+            <div class="btn-group" role="group" data-lang="pt" aria-label="Seleção do modo">
+              <button type="button" class="btn border-0 px-0" title="Claro" value="light" onclick="setTheme('light')">
+                <i class="bi bi-sun me-2"></i>
               </button>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="themeToggle">
-                <div data-lang="pt">
-                  <li>
-                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
-                      <i class="bi bi-sun me-2"></i>Claro
-                    </button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
-                      <i class="bi bi-moon me-2"></i>Escuro
-                    </button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
-                      <i class="bi bi-circle-half me-2"></i>Automático
-                    </button>
-                  </li>
-                </div>
-                <div data-lang="en" style="display: none">
-                  <li>
-                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('light')">
-                      <i class="bi bi-sun me-2"></i>Light
-                    </button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('dark')">
-                      <i class="bi bi-moon me-2"></i>Dark
-                    </button>
-                  </li>
-                  <li>
-                    <button class="dropdown-item d-flex align-items-center" onclick="setTheme('auto')">
-                      <i class="bi bi-circle-half me-2"></i>Auto
-                    </button>
-                  </li>
-                </div>
-              </ul>
+              <button type="button" class="btn border-0 px-0" title="Escuro" value="dark" onclick="setTheme('dark')">
+                <i class="bi bi-moon me-2"></i>
+              </button>
+              <button class="btn border-0 px-0" title="Automático" value="auto" onclick="setTheme('auto')">
+                <i class="bi bi-circle-half me-2"></i>
+              </button>
             </div>
-            <div>
-              <select id="lang_select" class="form-select form-select-sm w-auto">
-                <option value="pt">Português</option>
-                <option value="en">English</option>
-              </select>
+            <!--  -->
+            <div class="btn-group" role="group" data-lang="en" aria-label="Theme selection">
+              <button type="button" class="btn border-0 px-0" title="Light" value="light" onclick="setTheme('light')">
+                <i class="bi bi-sun me-2"></i>
+              </button>
+              <button type="button" class="btn border-0 px-0" title="Dark" value="dark" onclick="setTheme('dark')">
+                <i class="bi bi-moon me-2"></i>
+              </button>
+              <button type="button" class="btn border-0 px-0" title="Auto" value="auto" onclick="setTheme('auto')">
+                <i class="bi bi-circle-half me-2"></i>
+              </button>
+            </div>
+            <!--  -->
+            <div class="btn-group" role="group" data-lang="pt" aria-label="Seleção de idioma">
+              <button type="button" class="btn border-0 px-0" title="Português" value="pt" onclick="setLang('pt')">
+                <span class="flag-icon flag-icon-pt"></span>
+              </button>
+              <button type="button" class="btn border-0 px-0" title="English" value="en" onclick="setLang('en')">
+                <span class="flag-icon flag-icon-gb"></span>
+              </button>
+            </div>
+            <!-- "🇵🇹" : "🇬🇧" -->
+            <div class="btn-group" role="group" data-lang="en" aria-label="Language selection">
+              <button type="button" class="btn border-0 px-0" title="Português" value="pt" onclick="setLang('pt')">
+                <span class="flag-icon flag-icon-pt"></span>
+              </button>
+              <button type="button" class="btn border-0 px-0" title="English" value="en" onclick="setLang('en')">
+                <span class="flag-icon flag-icon-gb"></span>
+              </button>
             </div>
           </div>
         </div>
       </div>
     </header>
 
-    <div class="container-md my-4" id="search_parent">
+    <div class="container-md mt-4" id="search_parent">
       <form class="input-group mb-3" id="search_form">
         <input
           type="text"
@@ -156,7 +91,9 @@
           placeholder="Buscar palavra em Chope ou Português..."
           aria-label="Busca"
         />
-        <button class="btn btn-outline-secondary btn-border" type="submit" id="submit_btn" title="Buscar">🔍</button>
+        <button class="btn btn-outline-secondary btn-border" type="submit" id="submit_btn" title="Buscar">
+          <i class="bi bi-search"></i>
+        </button>
         <button class="btn btn-outline-secondary btn-border" type="button" id="clear_btn" title="Limpar busca">
           ✕
         </button>
@@ -174,6 +111,8 @@
             <p>Abaixo estão os conteúdos que podem ser pesquisados no Mapsi.</p>
             <ul>
               <li><a href="">Lista de palavras</a></li>
+              <li><a href="">Vogais</a></li>
+              <li><a href="">Consoantes</a></li>
               <li><a href="">Verbos</a></li>
               <li><a href="">Preposições</a></li>
               <li><a href="">Advérbios</a></li>
@@ -196,6 +135,8 @@
             <p>Below are the contents that can be searched on Mapsi.</p>
             <ul>
               <li><a href="">World list</a></li>
+              <li><a href="">Vowels</a></li>
+              <li><a href="">Consonants</a></li>
               <li><a href="">Verbs</a></li>
               <li><a href="">Prepositions</a></li>
               <li><a href="">Adverbs</a></li>
